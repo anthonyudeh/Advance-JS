@@ -44,7 +44,7 @@ console.log(diffApple)
 // so the return key word makes it possible for use to reuse the data stored inside the variable outside the function code block 
 
 
-function calcAge1(birthyear) {
+function calcAge1(birthyear) {  //function declaration
     const myAgeI = 2023 - birthyear
     return myAgeI
 }
@@ -63,7 +63,7 @@ console.log(`I am ${ageII} years old :)`)
 
 
 //function expression 
-const ageIII = function (birthyear) {
+const ageIII = function (birthyear) { //function expression
     return 2055 - birthyear
 }
 const ageIV = ageIII(1983);
@@ -81,7 +81,7 @@ console.log(ageV)
 
 
 
-const yearsUntilRetirement = birthyear => {
+const yearsUntilRetirement = birthyear => { //arrow function
     const dateOfBirth = 2057 - birthyear;
     const numberOfworkingYears = 10;
     const retirementAge = dateOfBirth - numberOfworkingYears;
@@ -115,10 +115,10 @@ function cutFruitPieces(fruit) {
     return fruit * 4
 }
 
-function fruitMainProcessor(mangoes, bananas) {
+function fruitMainProcessor(mangoes, bananas) { //function declaration
 
     //embedded function
-    const cutMangoes = cutFruitPieces(mangoes); 
+    const cutMangoes = cutFruitPieces(mangoes);
     const cutBananas = cutFruitPieces(bananas);
 
     const myJuiceMix = `the food processor is going to mix ${cutMangoes} mangoes and ${cutBananas} bananas`
@@ -133,7 +133,7 @@ console.log(diffJuiceMix2)
 //example 2 
 
 
-const companyAge = function (birthyear) {
+const companyAge = function (birthyear) { //function expression
     return 2005 - birthyear
 }
 const businessAge = function (birthyear, businessName) {
@@ -147,7 +147,7 @@ const businessAge = function (birthyear, businessName) {
     }
 
 }
-console.log(businessAge(1992, 'Alvoant')); 
+console.log(businessAge(1992, 'Alvoant'));
 //function declaration you can invoke the function before declaring the function
 //function expression is stored in a variable 
 //arrow function has no this key word   
@@ -155,26 +155,26 @@ console.log(businessAge(1992, 'Alvoant'));
 
 //coding chanllenge.... 
 
- const calcAverage1 = (Data1, Data2, Data3, Data4, Data5, Data6) => {
+const calcAverage1 = (Data1, Data2, Data3, Data4, Data5, Data6) => {
 
-    const dolphinsAvg = (Data1 + Data2 + Data3)/ 3;
+    const dolphinsAvg = (Data1 + Data2 + Data3) / 3;
     const koalasAvg = (Data4 + Data5 + Data6) / 3;
     return `the average for the Dolphins is ${dolphinsAvg} and the average for the koalas is ${koalasAvg}`
- }
+}
 
-const firstData = calcAverage1(12,24,45,3345,498,100)
+const firstData = calcAverage1(12, 24, 45, 3345, 498, 100)
 console.log(firstData)
 
- function checkWinner (avgDolphins, avgKoalas){
-    if(avgDolphins >= avgKoalas*2){
+function checkWinner(avgDolphins, avgKoalas) {
+    if (avgDolphins >= avgKoalas * 2) {
         console.log(`the dolphines wins ${avgDolphins} vs ${avgKoalas}`)
-    }else if(avgKoalas >= avgDolphins * 2){
+    } else if (avgKoalas >= avgDolphins * 2) {
         console.log(`the koalas wins ${avgKoalas} vs ${avgDolphins}`)
-    }else{
+    } else {
         console.log(`no team wins`)
     }
 
- }
+}
 checkWinner(firstData)
 
 //Data Structure --->  ARRAYS this a type of data structure and works like a big container that carries data we can referrence later. 
@@ -185,37 +185,37 @@ console.log(friends[0]); //arrays are zero based
 
 //another way of creating an array 
 
-const years = new Array(1991,1992,1993,1994); //using array function and using the 'new' key word 
+const years = new Array(1991, 1992, 1993, 1994); //using array function and using the 'new' key word 
 console.log(years);
 
 
 //number of elements in the array 
-console.log(friends.length); 
+console.log(friends.length);
 
 //last element in the array 
-console.log(friends[friends.length -1]); //friends.length-1 is an expression not a statement
+console.log(friends[friends.length - 1]); //friends.length-1 is an expression not a statement
 
 //replace elements in the array 
-friends[2] = 'Kev'; 
-console.log(friends); 
+friends[2] = 'Kev';
+console.log(friends);
 
 //holds different values 
-const firstName = 'Jonas'; 
-const jonas = [firstName, 'Schmedtmann', 2037-1981, 'teachers', friends];
+const firstName = 'Jonas';
+const jonas = [firstName, 'Schmedtmann', 2037 - 1981, 'teachers', friends];
 console.log(jonas);
 
 
 //simple excerise 
-const newCalcAge = function(birthyear){
-    return 2037 - birthyear; 
+const newCalcAge = function (birthyear) {
+    return 2037 - birthyear;
 }
 
 const ages = [1991, 1901, 1984, 2005];
 
 const firstAge = newCalcAge(ages[0]);
 const secondAge = newCalcAge(ages[1]);
-const thirdAge = newCalcAge(ages[ages.length -1]);
-console.log(firstAge, secondAge, thirdAge); 
+const thirdAge = newCalcAge(ages[ages.length - 1]);
+console.log(firstAge, secondAge, thirdAge);
 
 const newAges = [newCalcAge(ages[0]), newCalcAge(ages[1]), newCalcAge(ages[ages.length - 1])];
 console.log(newAges);
@@ -226,20 +226,20 @@ const newFriends = ['Emma', 'Dammy', 'JR.Light']
 
 //push method -> we want to push an element to an array
 newFriends.push('Jay'); //push function , it returns the lenght of the new array
-console.log(newFriends); 
+console.log(newFriends);
 
 //unshift method -> we want to add an element at the beginning of the array 
 newFriends.unshift('Grey')
-console.log(newFriends); 
+console.log(newFriends);
 
 //pop method -> we want to remove the last element 
 newFriends.pop();  // it returns the removed elements 
 const popped = newFriends.pop();
-console.log(popped); 
+console.log(popped);
 console.log(newFriends);
 
 //shift method -> we want to remove the first element 
-newFriends.shift(); 
+newFriends.shift();
 console.log(newFriends);
 
 //we want to know the position of an element 
@@ -251,26 +251,141 @@ console.log(newFriends.indexOf('JR.Light')); //if you want to know the position 
 console.log(newFriends.includes('JR.Light'));
 console.log(newFriends.indexOf('Dammy')); //this does not accept coertion ;
 
-if(newFriends.includes('Peter')){
-    console.log `you have a friend named peter`
-}else{
-    console.log `you do not have a friend named peter`
+if (newFriends.includes('Peter')) {
+    console.log`you have a friend named peter`
+} else {
+    console.log`you do not have a friend named peter`
 }
 
 
 //code chanllege 
 
-const calcTip = function(billValue){
-    if(billValue >= 50 && billValue <= 300){
-          return (billValue * (15/100)) + billValue;
-    }else{
-        return (billValue * (20/100)) + billValue;
+const calcTip = function (billValue) {
+    if (billValue >= 50 && billValue <= 300) {
+        return (billValue * (15 / 100)) + billValue;
+    } else {
+        return (billValue * (20 / 100)) + billValue;
     }
 }
 console.log(calcTip(100));
 
-const tips = [calcTip(125) - 125, calcTip(555)-555, calcTip(44)-44]
+const tips = [calcTip(125) - 125, calcTip(555) - 555, calcTip(44) - 44]
 console.log(tips)
 
 const bills = [calcTip(125), calcTip(555), calcTip(44)];
 console.log(bills)
+
+
+//objects 
+let birthyear = 1990;
+const firstObject = {
+    firstName: 'Jonas',
+    lastName: 'Kelvin',
+    age: 2037 - birthyear,
+    job: 'teacher',
+    friends: ['peter', 'grey', 'tee']
+}
+
+//get a property from an object using the dot notation
+console.log(firstObject.friends); //the dot is an operator 
+console.log(firstObject['friends']); //the bracket notation....
+
+const nameKey = 'Name';
+console.log(firstObject['first' + nameKey]);
+console.log(firstObject['last' + nameKey]);
+
+const intrestedInfo = prompt('what information do you want from jonas, firstName, lastName, age, job, friends');
+
+if (firstObject[intrestedInfo]) {
+    console.log(firstObject[intrestedInfo])
+} else {
+    console.log('Wrong request :)')
+}
+//how to add new properties to an Object using the the dot and bracket notation 
+firstObject.location = 'Abuja';
+firstObject['twitter'] = '@thebadtechguy';
+
+console.log(firstObject);
+
+const newData = firstObject.friends[0];
+const newDatalength = firstObject.friends.length; //this dot notation is also known as "member access" and the bracket notation is also known as "Computed member access". So the "." and this is executed from left to right.
+
+if (newData) {
+    console.log(`Jonas has ${newDatalength} friends, and his best friend is ${newData}`)
+} else {
+    console.log(`this is not Jonas best friend`);
+}
+
+
+//object methods. 
+
+const newPersonInfo = {
+    firstName: 'Anthony',
+    foodTypes: ['Yam', 'Swallow', 'Fish', 'Beans'],
+    age: 23,
+    location: 'Abuja',
+    birthyear: 45,
+    hasLifeInsurrance: false,
+
+    calDOB: function (currentYear) {
+        return currentYear - this.age;  //the 'this' key word is substituting from the newPersonInfo so we can do 'this.age' and we can do 'newPersonInfo.age' whichever you use will work perfectly
+
+        //note: Any function that is attached to an object is a method so 'calDOB' is the method is the 'newPersonInfo' object
+
+        console.log(this);
+    }, 
+
+    calWorkAge: function (startYear){
+        this.startWorkYear = 2023 - startYear;
+        return this.startWorkYear;
+    },
+
+    //Challenge : Write a method named 'getSummary' returns a string that summarizes the information of the 'newPersonObject' object 
+
+    getSummary: function(){
+        return `the newPersonInfo has a firstName ${this.firstName}, the food he enjoys are ${this.foodTypes}. He is ${this.age} years old, leaves in ${this.location} and his  ${this.hasLifeInsurrance ? 'a' : 'no'} life insurrance`
+    }
+
+    /* note that this function above is the same thing with this function expression
+
+      calDOB = function(currentYear){ 
+        return currentYear -newPersonInfo.age
+      }   
+    */
+};
+console.log(newPersonInfo.calDOB(2025)); //dot notation
+console.log(newPersonInfo['calDOB'](2035));//bracket notation
+//now we want to add a function to an object
+console.log(this.foodTypes);// so we can't do this, we can only use the 'this' keyword inside the function or
+console.log(newPersonInfo.calWorkAge(1998));
+console.log(newPersonInfo.getSummary()); 
+
+
+
+const firstPersonObject = {
+     fullName: 'Mark Miller', 
+     mass: 78, 
+     height: 1.69,
+
+     calcBMI: function(){
+        const firstBMI = this.mass / (this.height ** 2); 
+        return firstBMI; 
+     }
+
+}
+
+const secondPersonObject = {
+    fullName: 'John Smith', 
+    mass: 92, 
+    height: 1.69,
+
+    calcBMI: function(){
+       const firstBMI = this.mass / (this.height ** 2); 
+       return firstBMI; 
+    }
+
+}
+
+console.log(firstPersonObject.calcBMI())
+
+
