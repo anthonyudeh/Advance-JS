@@ -294,13 +294,13 @@ const nameKey = 'Name';
 console.log(firstObject['first' + nameKey]);
 console.log(firstObject['last' + nameKey]);
 
-const intrestedInfo = prompt('what information do you want from jonas, firstName, lastName, age, job, friends');
+// const intrestedInfo = prompt('what information do you want from jonas, firstName, lastName, age, job, friends');
 
-if (firstObject[intrestedInfo]) {
-    console.log(firstObject[intrestedInfo])
-} else {
-    console.log('Wrong request :)')
-}
+// if (firstObject[intrestedInfo]) {
+//     console.log(firstObject[intrestedInfo])
+// } else {
+//     console.log('Wrong request :)')
+// }
 //how to add new properties to an Object using the the dot and bracket notation 
 firstObject.location = 'Abuja';
 firstObject['twitter'] = '@thebadtechguy';
@@ -389,3 +389,35 @@ const secondPersonObject = {
 console.log(firstPersonObject.calcBMI())
 
 
+
+//Document Obeject Model Manipulation
+
+//building a project *Guess my number*
+ //querySelectors
+
+ console.log(document.querySelector('.start-guessing-header').textContent); //it's a method 
+ //so we used the textContent to see the inner element 
+
+ //the keyword 'document' object is the first entry point to the DOM, the DOM is actually a way inwhich our javascript can have access to the HTML on the browser for interactivity
+
+ //DOM --> HTML 
+ //now the HTML has two child element  the 'head' tag and 'body' tag
+
+ //As we dive deeper in the DOM tree the we see more elements that children of the the head and body including the texts in the elements or tags 
+//Note that the DOM is a pure representation of the HTML so what is is on the dom is exactly on the HTML then Javascripts just manipulates. 
+
+//Note the DOM is not a part of javaScript language 'document.querySelector()' and so on. so how does this work how does the DOM work perfectly with JS and its because the DOM and DOM methods are parts of WEB APIs , so the WEB APIs are libraries the browsers implement and we can access this from our JS code. WEB APIs are libraries writing in JS hidden without us needing to import any file but available for us to use.
+
+
+// document.querySelector('.start-guessing-header').textContent = 'Too low!';
+// document.querySelector('.score-number').textContent = 0;
+// document.querySelector('#second-btn').textContent = 15;
+// document.querySelector('.input-digit').value = 34;
+
+//Event listener 
+const checkBtn = document.querySelector('#third-btn').addEventListener('click', function(){
+    const numberValue = Number(document.querySelector('.input-digit').value) //note that the JS engine calls this function 
+ 
+    console.log(typeof numberValue, numberValue )
+      
+});//addEventListener Method ==> takes in the two parameters the 'type' of event you want to happen and a function which is the event handler, now the event handler tells JS the action you want it to perform 
