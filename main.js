@@ -333,16 +333,16 @@ const newPersonInfo = {
         //note: Any function that is attached to an object is a method so 'calDOB' is the method is the 'newPersonInfo' object
 
         console.log(this);
-    }, 
+    },
 
-    calWorkAge: function (startYear){
+    calWorkAge: function (startYear) {
         this.startWorkYear = 2023 - startYear;
         return this.startWorkYear;
     },
 
     //Challenge : Write a method named 'getSummary' returns a string that summarizes the information of the 'newPersonObject' object 
 
-    getSummary: function(){
+    getSummary: function () {
         return `the newPersonInfo has a firstName ${this.firstName}, the food he enjoys are ${this.foodTypes}. He is ${this.age} years old, leaves in ${this.location} and his  ${this.hasLifeInsurrance ? 'a' : 'no'} life insurrance`
     }
 
@@ -358,30 +358,30 @@ console.log(newPersonInfo['calDOB'](2035));//bracket notation
 //now we want to add a function to an object
 console.log(this.foodTypes);// so we can't do this, we can only use the 'this' keyword inside the function or
 console.log(newPersonInfo.calWorkAge(1998));
-console.log(newPersonInfo.getSummary()); 
+console.log(newPersonInfo.getSummary());
 
 
 
 const firstPersonObject = {
-     fullName: 'Mark Miller', 
-     mass: 78, 
-     height: 1.69,
+    fullName: 'Mark Miller',
+    mass: 78,
+    height: 1.69,
 
-     calcBMI: function(){
-        const firstBMI = this.mass / (this.height ** 2); 
-        return firstBMI; 
-     }
+    calcBMI: function () {
+        const firstBMI = this.mass / (this.height ** 2);
+        return firstBMI;
+    }
 
 }
 
 const secondPersonObject = {
-    fullName: 'John Smith', 
-    mass: 92, 
+    fullName: 'John Smith',
+    mass: 92,
     height: 1.69,
 
-    calcBMI: function(){
-       const firstBMI = this.mass / (this.height ** 2); 
-       return firstBMI; 
+    calcBMI: function () {
+        const firstBMI = this.mass / (this.height ** 2);
+        return firstBMI;
     }
 
 }
@@ -393,17 +393,17 @@ console.log(firstPersonObject.calcBMI())
 //Document Obeject Model Manipulation
 
 //building a project *Guess my number*
- //querySelectors
+//querySelectors
 
- console.log(document.querySelector('.start-guessing-header').textContent); //it's a method 
- //so we used the textContent to see the inner element 
+console.log(document.querySelector('.start-guessing-header').textContent); //it's a method 
+//so we used the textContent to see the inner element 
 
- //the keyword 'document' object is the first entry point to the DOM, the DOM is actually a way inwhich our javascript can have access to the HTML on the browser for interactivity
+//the keyword 'document' object is the first entry point to the DOM, the DOM is actually a way inwhich our javascript can have access to the HTML on the browser for interactivity
 
- //DOM --> HTML 
- //now the HTML has two child element  the 'head' tag and 'body' tag
+//DOM --> HTML 
+//now the HTML has two child element  the 'head' tag and 'body' tag
 
- //As we dive deeper in the DOM tree the we see more elements that children of the the head and body including the texts in the elements or tags 
+//As we dive deeper in the DOM tree the we see more elements that children of the the head and body including the texts in the elements or tags 
 //Note that the DOM is a pure representation of the HTML so what is is on the dom is exactly on the HTML then Javascripts just manipulates. 
 
 //Note the DOM is not a part of javaScript language 'document.querySelector()' and so on. so how does this work how does the DOM work perfectly with JS and its because the DOM and DOM methods are parts of WEB APIs , so the WEB APIs are libraries the browsers implement and we can access this from our JS code. WEB APIs are libraries writing in JS hidden without us needing to import any file but available for us to use.
@@ -415,9 +415,76 @@ console.log(firstPersonObject.calcBMI())
 // document.querySelector('.input-digit').value = 34;
 
 //Event listener 
-const checkBtn = document.querySelector('#third-btn').addEventListener('click', function(){
-    const numberValue = Number(document.querySelector('.input-digit').value) //note that the JS engine calls this function 
- 
-    console.log(typeof numberValue, numberValue )
-      
+
+let secretNumber = Math.trunc(Math.random() * 20) + 1; //math.random() is a method used to generate random numbers you can try it on the console and you can see random numbers 
+
+const correctNumber = document.querySelector('.main-container-wrapper')
+let highScore = Number(document.querySelector('.highscore-number').textContent)
+let scoreNumber = document.querySelector('.score-number').textContent;
+
+
+const displayMessage = function (message) {
+    document.querySelector('.start-guessing-header').textContent = message;
+}
+
+
+const checkBtn = document.querySelector('#third-btn').addEventListener('click', function () {
+    const numberValue = Number(document.querySelector('.input-digit').value); //note that the JS engine calls this function behind the scene
+    console.log(typeof numberValue, numberValue);
+
+    if (!numberValue) {
+        displayMessage('no number :)')
+
+    } else if (numberValue < secretNumber) {
+        displayMessage('Too low :)')
+        document.querySelector('.main-container-wrapper').style.backgroundColor = 'black';
+        let newNumber = Number(scoreNumber--);
+        document.querySelector('.score-number').textContent = newNumber;
+
+        if(newNumber === 0 || newNumber <=0){
+            displayMessage('You lost the game :)')
+            document.querySelector('.score-number').textContent = 0;
+        }else{
+            displayMessage('Start guessing...')
+        }
+
+    } else if (numberValue > secretNumber) {
+        document.querySelector('.main-container-wrapper').style.backgroundColor = 'black'
+        displayMessage('Too High :)')
+        let newNumber = Number(scoreNumber--);
+        document.querySelector('.score-number').textContent = newNumber;
+
+        if (newNumber === 0) {
+            displayMessage('You lost the game :)')
+        } else if (newNumber <= 0) {
+            document.querySelector('.score-number').textContent = 0;
+            displayMessage('You lost the game :)')
+        }
+
+    } else if (numberValue === secretNumber) {
+        displayMessage('correct number :)');
+        document.querySelector('.main-container-wrapper').style.backgroundColor = 'green'
+        document.querySelector('#second-btn').textContent = secretNumber;
+        let newNumber = Number(document.querySelector('.score-number').textContent);
+        if (newNumber === 0 && numberValue === secretNumber) {
+            displayMessage('You lost the game :)')
+        } else if (newNumber <= 0 && numberValue === secretNumber) {
+            displayMessage('You lost! Start Again! :)')
+            document.querySelector('.score-number').textContent = 0;
+        } else if (document.querySelector('.start-guessing-header').textContent = 'correct number :)') {
+            document.querySelector('.highscore-number').textContent = newNumber;
+
+        }
+
+    }
+
 });//addEventListener Method ==> takes in the two parameters the 'type' of event you want to happen and a function which is the event handler, now the event handler tells JS the action you want it to perform 
+
+const againBtn = document.querySelector('#first-btn').addEventListener('click', function () {
+    document.querySelector('.start-guessing-header').textContent = 'Start guessing ...'
+    document.querySelector('.main-container-wrapper').style.backgroundColor = 'black';
+    secretNumber = Math.trunc(Math.random() * 20) + 1;
+    document.querySelector('#second-btn').textContent = '?'
+    document.querySelector('.input-digit').value = ''
+
+})
