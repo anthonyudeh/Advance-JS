@@ -441,7 +441,7 @@ const checkBtn = document.querySelector('#third-btn').addEventListener('click', 
         let newNumber = Number(scoreNumber--);
         document.querySelector('.score-number').textContent = newNumber;
 
-        if(newNumber === 0 || newNumber <=0){
+        if (newNumber === 0 || newNumber <= 0) {
             displayMessage('You lost the game :)')
             document.querySelector('.score-number').textContent = 0;
         }
@@ -490,23 +490,250 @@ const againBtn = document.querySelector('#first-btn').addEventListener('click', 
 //ARRAYS, MAPS, OBJECTS, MODERN JS FEATURES LIKE DESTRUCTURING AND CHAINING , HOW TO WORK WITH STRINGS 
 
 const resturanct = {
-    name : 'Jonas Store', 
-    location: 'Via Angelo Tavanti 23 Frienef, Italy', 
-    categoried: ['italian', 'pizzeria', 'vegetarian', 'organic'], 
-    startMenu: ['Focaccia', 'Bruschetta', 'Garlic', 'Bread', 'Caprese Salad'], 
+    name: 'Jonas Store',
+    location: 'Via Angelo Tavanti 23 Frienef, Italy',
+    categoried: ['italian', 'pizzeria', 'vegetarian', 'organic'],
+    startMenu: ['Focaccia', 'Bruschetta', 'Garlic', 'Bread', 'Caprese Salad'],
     mainMenu: ['Pizza', 'Pasta', 'Risotto']
 };
 
 //food delivery application 
 //Array Destructuring is a modern type of JS feature which involves breaking complex data structures down into smaller data structure like varibale , we retrieve day from an array and store them in variables 
 
-const data = [0,1,2,3];
+const data = [0, 1, 2, 3];
 const a = data[0];
 const b = data[1];
 const c = data[2];
-console.log(a,b,c)
+console.log(a, b, c)
 
 
-const [x,y,z] = data; // destructuring declaring all three variables at the same time
-console.log(x,y,z); 
+const [x, y, z] = data; // destructuring declaring all three variables at the same time
+console.log(x, y, z);
 
+//Advance topics on functions (closures, higher order functions, binding methods); 
+
+//Default parameters : Some parameters are set by default this way we do not have to set them manually
+
+//here we are passing the parameters manually just like we use to do
+const bookings = []
+
+const createBooking = function (number, numPassenger = 1, price = 199 * numPassenger) { //ES6
+
+    //ES5
+    numPassenger = numPassenger || 1;
+    price = price || 199;
+
+    const booking = {  //we created a booking object and we do not have to assign any value to the cause we push it all inside an array---> this is the enhance object literal syntax 
+        number,
+        numPassenger,
+        price
+    }
+
+    console.log(booking);
+    bookings.push(booking);
+}
+createBooking('LH123');
+createBooking('LH123', 30, 800)
+createBooking('LH123', undefined, 30);// skipping a parameter 
+
+
+//How pass arguments into functions
+//How primitives and objects work in the context of functions
+
+const flight = 'LH234';
+const jonasK = {
+    name: 'Jonas Schmedtmann',
+    passport: 23975755874
+}
+
+const checkIn = function (flightNum, passengerObj) {
+    //the flight of the number was changed
+    flightNum = 'LH999';
+    passengerObj.name = 'Mr. ' + passengerObj.name;
+
+    if (passengerObj.passport === 23975755874) {
+        console.log('Check in !')
+    } else {
+        alert('Wrong Passport!')
+    }
+}
+//How does the  argument flightNum affect the variable flight 
+checkIn(flight, jonasK);
+console.log(flight);
+console.log(jonasK); //reference to line 573
+
+//Passing a primitive data type inside a function is till the same as doing this, cause in the heap they are all objects 
+const flightNum = flight;
+const passengerObj = jonasK // because we are using the parameter to access the key values 
+
+const newPassport = function (person) {
+    person.passport = Math.trunc(Math.random() * 1000000);
+}
+newPassport(jonasK);
+checkIn(flight, jonasK); //we have two functions manipulating the same object 
+
+//passing by value and passing by reference 
+//JS does not have passing by reference 
+//JS has only passing by value
+
+//FUNDAMENTAL PROPERTY = FIRST CLASS AND HIGHER ORDER FUNCTIONS 
+//first class functions - means that functions are simply values not reference also JS treats functions as a first-class citizens and lastly functions are another type of objects (that's why arguments can access key values inside and object) since objects are values , functions are values 
+
+//Example of the first class function 
+//btnClose.addEventListener('click', get()); //this is first class function
+const add = (a, b) => a + b //this is first class function 
+
+//Higher Order function: This is a functions that recieves another function as an argument, that returns a new function or both and this is only possible because of first class function
+//example of higher order function
+
+const get = str => str.slice(0, 3).toUpperCase()
+//btnClose.addEventListener('click', get()); //here the addeventlistener recieves another function, this is the call back function , the addeventlistener will call the get function later when the click action happens. 
+
+//we have functions that return another function has higher order function
+//example 
+function helX() {
+    let count = 0
+    return function () {
+        count++
+    }
+}
+
+
+//Higher Order Function 
+
+//Generic functions that do simple string transformations 
+const oneWord = function (str) {
+    return str.replace(/ /g, '').toLowerCase() //replacing all the spaces in a word using regualar expression
+}
+
+
+const upperFireWord = function (str) {
+    const [first, ...others] = str.split(' '); //all words seperated with a space then its two words the first desturctured variable 'first' would be for the first word while the '...others' if they are still more than one word 
+
+    //this function will transform all the first words to uppercase and we were able to do that by destructuring 
+    return [first.toUpperCase(), ...others].join(' ') //returning a new array that we will join
+}
+
+// console.log(upperFireWord('Hello World, there is an earthquake!'))
+
+
+// Higher order function ---> Takes in a fn
+const transformer = function (str, fn) {  // this fn = upperFireWord
+    console.log(`Original stringL ${str}`)
+    console.log(`Transformed string: ${fn(str)}`) //this is where we called the function  
+
+    console.log(`Transformed by: ${fn.name}`)//functions can have properties and methods //the name = upperFireWord; Just the name of the function
+}
+
+transformer('JavaScript is the best!', upperFireWord) //notice we are not calling or invoking the upperFireWord function we are passing the function value 
+
+transformer('JavaScript is the best!', oneWord) //here we are just passing the oneWord name as parameters remember in this can fn = oneWord and we have console logged it in line 623;
+
+const high5 = function () {
+    console.log('Wtf am I learning')
+}
+
+document.body.addEventListener('click', high5);
+['jonas', 'Martha', 'Adam'].forEach(high5);
+//call back functons allows us to create abbstraction by hiding the detail of some code implementation //What do I mean? Now we could have done some code implementation of remove spaces in a string in the transformer function but we did all the details in the oneWord function and just pass in the function name and called the function is the transformer function....So the soul purpose of this is for reuseability and keep your work tidy.
+
+//function returning functions 
+
+const greet = function (greeting) {
+    return function (name) {
+        console.log(`${greeting} ${name}`)
+    }
+}
+
+const greeter = greet('hey') //we stored greet function call in the greeter variable , automatically the greeter becomes a function 
+greeter('Joner')// so we call it here 
+greeter('Steven')
+
+//we can also call the greet function 
+greet('Hey')('Jonas');
+
+//
+//Code challenge 
+const hour = greeting => {
+    return name => console.log(`${greeting} ${name}`);
+};
+
+const exactHour = hour('Morning');
+exactHour('James');
+hour('Evening')('Lopez');
+
+//you can also write it this way
+const myHour = greeting => name => console.log(`${greeting} ${name}`);
+myHour('Evening')('Lopez');
+
+//This Key Word 
+
+const flightMethod = function (flightNum, PassegerName) {
+    console.log(`${PassegerName} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`)
+
+    this.booking.push({ flight: `${this.iataCode}${flightNum}`, PassegerName })
+}
+
+const londonFlightA23 = {
+    airline: 'LFA23',
+    iataCode: 'LH',
+    booking: [
+        {
+            flight: 894,
+            PassegerName: 'James'
+        }
+    ],
+
+    flightMethod,
+
+}
+londonFlightA23.flightMethod(239, 'Jonas');
+londonFlightA23.flightMethod(568, 'Mike');
+console.log(londonFlightA23)
+//created a new airline
+
+const qatarFlight = {
+    airline: 'Qatarflight',
+    iataCode: 'QF',
+    booking: [],
+
+    flightMethod,
+}
+
+qatarFlight.flightMethod(777, 'Tee')
+console.log(qatarFlight);
+
+//How do you tell JS that this 'this' should be for this object and not the other one
+//and they 3 methods of applying this functionality
+xyz.call(qatarFlight, 777, 'Tee') //this is the call method that will call the object you want the this keyword you want it to refere to
+// console.log(qatarFlight) //then cl the object
+
+
+//Apple method - this does not recieve a list of arguments inside it takes an array
+const flightData = [534, 'Goerge Cooper']
+flightMethod.apply(xxx, flightData)
+console.log(xxx); 
+
+//bind Method - Manually allows us to set the this key to any function, this returns a new function
+const xxxQF = xxx.bind(qatarFlight); 
+const xxxSW = xxx.bind(qatarFlight, 34); //partial application
+xxxQF(23, 'Steven Williams')
+xxxSW('James Marco'); //a part of the argument has already been applied. 
+
+//When we use object with event listeners 
+londonFlightA23.planes = 300; 
+londonFlightA23.buyPlanes = function (){
+    console.log(this)
+    this.planes++
+    console.log(this.planes);
+}
+
+londonFlightA23.buyPlanesplanes() // this will work because the this is inside the londonFlightA23.buyPlanes function
+
+document.querySelector('#btnPlane').addEventListener('click', londonFlightA23.buyPlanes.bind(londonFlightA23))
+//this will not work why becaue the this key word is attached to the 'document.querySelector('#btnPlane')' 
+//Now we are taking out the londonFlightA23.buyPlanes and we are calling it inside the addEventListener function and the this key word will not work here.
+
+//So we use the bind key word and we pass in the londonFlight that is the this itself inside the bind method
+
+//Partial Application 
